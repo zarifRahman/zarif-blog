@@ -24,7 +24,6 @@ const RecentPosts = ({ blogs }) => {
           return (
             <article key={index} className='col-span-1 row-span-1 relative'>
               <BlogLayoutThree blog={blog} />
-							{/* <h1>hello</h1> */}
             </article>
           );
         })}
