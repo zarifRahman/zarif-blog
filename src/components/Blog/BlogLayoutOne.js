@@ -4,6 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { slug } from "github-slugger";
 
+// Group  Hover
+// Put group in the parent element and group-hover: in all those child elements 
+// where we want the style on hover, everything else will be taken care of.
+
 const BlogLayoutOne = ({ blog }) => {
   return (
     <div className='group inline-block overflow-hidden rounded-xl'>
@@ -19,6 +23,8 @@ const BlogLayoutOne = ({ blog }) => {
         alt={blog.title}
         width={blog.image.width}
         height={blog.image.height}
+        // Hover Effect
+        // group-hover:scale-105 transition-all ease duration-300
         className='w-full h-full object-center object-cover rounded-xl group-hover:scale-105 transition-all ease duration-300'
         sizes='(max-width: 1180px) 100vw, 50vw'
       />
