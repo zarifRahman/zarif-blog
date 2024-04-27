@@ -1,7 +1,7 @@
-import { cx } from '@/utils';
+import { cx } from '@/src/utils';
 import './globals.css'
 import { Inter, Manrope } from "next/font/google";
-import Header from '@/components/Header';
+import Header from '@/src/components/Header';
 
 export const metadata = {
   title: 'Create Next App',
