@@ -20,7 +20,7 @@ const Footer = () => {
         Interesting Stories | Updates | Guides
       </h3>
       <p className='mt-5 px-4 text-center w-full sm:w-3/5 font-light dark:font-medium text-sm sm:text-base'>
-        Subscribe to learn about new technology and updates. Join over 5000+
+        Subscribe to learn about new technology and updates. Join over 2000+
         members community to stay up to date with latest news.
       </p>
 
@@ -83,8 +83,8 @@ const Footer = () => {
         <div className='text-center'>
           Made with &hearts; by{" "}
           <a
-            // href='https://devdreaming.com'
-            className='underline'
+            href='https://github.com/zarifRahman'
+            // className='underline'
             target='_blank'
           >
             ZARIF
