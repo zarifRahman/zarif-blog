@@ -2,6 +2,8 @@ import { cx } from '@/src/utils';
 import './globals.css'
 import { Inter, Manrope } from "next/font/google";
 import Header from '@/src/components/Header';
+import Script from "next/script";
+import Footer from '../components/Footer';
 
 export const metadata = {
   title: 'Create Next App',
@@ -29,8 +31,16 @@ export default function RootLayout({ children }) {
           "font-mr bg-light dark:bg-dark"
         )}
       >
+        <Script id='theme-switcher' strategy='beforeInteractive'>
+          {`if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark')
+          } else {
+            document.documentElement.classList.remove('dark')
+          }`}
+        </Script>
         <Header />
         {children}
+        {/* <Footer /> */}
       </body>
     </html>
   );
