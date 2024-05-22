@@ -1,0 +1,183 @@
+---
+title: "How React Works"
+description: A deep dive into React under the hood understanding.
+image: "../../public/blogs/luca-bravo-XJXWbfSo2f0-unsplash.jpg"
+publishedAt: "2024-05-15"
+updatedAt: "2024-05-15"
+author: "zarif"
+isPublished: true
+tags:
+
+- react
+- development
+---
+
+
+## Key Concepts of React's Inner Workings
+
+### 1. Virtual DOM (VDOM)
+- React maintains a virtual representation of the actual DOM. The VDOM is a lightweight copy 
+of the real DOM that allows React to make updates efficiently.
+
+### 2. Reconciliation
+- React uses a diffing algorithm to compare the previous VDOM with the new VDOM. This process is called reconciliation. 
+It identifies the changes (or "diffs") between the two VDOMs.
+
+### 3. Rendering
+- Based on the diffs, React updates the actual DOM to reflect the new state. This process minimizes direct 
+DOM manipulations, which are costly in terms of performance.
+
+### Detailed Workflow
+## Step-by-Step Process
+
+### 1.Initial Render
+-**When a React application first loads, it creates components and generates the initial VDOM based on the 
+current state and props.**
+
+### 2.State/Props Changes
+-**When the state or props of a component change, React triggers a re-render process for that component.**
+
+### 3.Re-render and VDOM Update
+-**React re-renders the component and updates the VDOM. This new VDOM is then compared 
+with the previous VDOM (reconciliation).**
+
+### 4.Diffing Algorithm
+-**React's diffing algorithm calculates the differences between the old VDOM and the new VDOM.**
+
+### 5.Batching and Scheduling
+-**React batches multiple updates together and schedules them to be applied to the actual DOM. 
+This ensures efficient and smooth UI updates (More details are given below).**
+
+### 6.DOM Updates
+-**Finally, React applies only the necessary changes to the actual DOM. This minimizes direct 
+DOM manipulations, leading to better performance.**
+
+
+### Diagram
+Here is a simplified diagram to illustrate the process:
+
+```text 
+            ┌───────────────────────────────┐
+            │           Components          │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │         Initial Render        │
+            │  (Create Initial VDOM Tree)   │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │       State/Props Changes     │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │        Re-render Component    │
+            │  (Generate New VDOM Tree)     │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │        Reconciliation         │
+            │    (VDOM Diffing Algorithm)   │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │ Batching and Scheduling Updates│
+            │      (Optimizing Updates)     │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │         Update DOM            │
+            │(Apply only necessary changes) │
+            └───────────────────────────────┘
+```
+
+### Explanation of Components
+
+1. **Components**: The building blocks of a React application. Components are JavaScript functions or classes that optionally accept inputs (called "props") and return React elements describing what should appear on the screen.
+
+2. **Initial Render**: The initial creation of the VDOM tree when the app loads for the first time.
+
+3. **State/Props Changes**: Any updates to the state or props that trigger a re-render of the component.
+
+4. **Re-render Component**: React generates a new VDOM tree based on the updated state or props.
+
+5. **Reconciliation**: The process where React compares the new VDOM with the previous one to determine the changes that need to be made to the actual DOM.
+
+6. **Batching and Scheduling Updates**: React batches multiple changes together and schedules them efficiently to minimize performance hits.
+
+7. **Update DOM**: React updates the actual DOM with the changes identified during the reconciliation process.
+
+By using the Virtual DOM and an efficient diffing algorithm, React ensures that only the necessary parts of the 
+DOM are updated, leading to high performance and a responsive UI. This approach allows React to handle complex user interfaces efficiently.
+
+<br/>
+
+## Batching and Scheduling in React
+
+### Batching
+
+**Batching** is the process of grouping multiple state updates together and applying them in a single render pass. Instead of updating the DOM for every individual state change, React batches multiple updates and then processes them all at once, reducing the number of renders and improving performance.
+
+### Scheduling
+
+**Scheduling** is the mechanism by which React prioritizes updates to ensure that high-priority updates (like user interactions) are handled before less critical updates (like data fetching). React's scheduling is powered by the React Fiber architecture, which allows it to break rendering work into units and spread it out over multiple frames, yielding control back to the browser to ensure smooth animations and interactions.
+
+### How It Works
+
+1. **Event Handling**:
+   - When an event (like a click or input change) occurs, React starts by batching all the updates triggered by this event. This means any state changes caused by the event are collected together.
+
+2. **Batching Process**:
+   - During the batching process, React waits until all synchronous code has finished executing before it processes any updates. This ensures that all related updates are handled together, which prevents unnecessary re-renders.
+
+3. **Update Prioritization**:
+   - React assigns priority levels to updates. User interactions are given higher priority over other updates like network requests or data processing.
+   - The React Fiber architecture allows React to pause work, divide it into chunks, and continue it later, ensuring the app remains responsive.
+
+4. **Rendering**:
+   - After batching the updates, React schedules the rendering process. React Fiber helps in efficiently scheduling the rendering work by splitting the rendering process into units of work.
+   - High-priority updates are processed first. If there's enough time, React continues to process low-priority updates.
+
+5. **Commit Phase**:
+   - Once React has completed the reconciliation process and determined the necessary changes, it moves to the commit phase.
+   - During the commit phase, React applies the changes to the real DOM in a single pass, ensuring minimal DOM manipulations.
+
+## Diagram
+
+Here's a diagram to illustrate the process:
+
+```plaintext
+            ┌───────────────────────────────┐
+            │       Event Handling          │
+            │  (Batch updates triggered)    │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │        Batching Process       │
+            │(Collect all updates together) │
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │    Update Prioritization      │
+            (Assign priority levels to work)│
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │           Rendering           │
+            │ (Schedule and process updates)│
+            └───────────────────────────────┘
+                          │
+                          ▼
+            ┌───────────────────────────────┐
+            │         Commit Phase          │
+            │ (Apply changes to the DOM)    │
+            └───────────────────────────────┘
