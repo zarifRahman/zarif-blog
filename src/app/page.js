@@ -1,4 +1,3 @@
-import Image from 'next/image'
 import { allBlogs } from "contentlayer/generated";
 import HomeCoverSection from '../components/Home/HomeCoverSection';
 import FeaturedPosts from '../components/Home/FeaturedPosts';
