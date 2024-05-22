@@ -130,21 +130,21 @@ DOM are updated, leading to high performance and a responsive UI. This approach 
 
 ### How It Works
 
-1. **Event Handling**:
+**1. Event Handling**:
    - When an event (like a click or input change) occurs, React starts by batching all the updates triggered by this event. This means any state changes caused by the event are collected together.
 
-2. **Batching Process**:
+**2. Batching Process**:
    - During the batching process, React waits until all synchronous code has finished executing before it processes any updates. This ensures that all related updates are handled together, which prevents unnecessary re-renders.
 
-3. **Update Prioritization**:
+**3. Update Prioritization**:
    - React assigns priority levels to updates. User interactions are given higher priority over other updates like network requests or data processing.
    - The React Fiber architecture allows React to pause work, divide it into chunks, and continue it later, ensuring the app remains responsive.
 
-4. **Rendering**:
+**4. Rendering**:
    - After batching the updates, React schedules the rendering process. React Fiber helps in efficiently scheduling the rendering work by splitting the rendering process into units of work.
    - High-priority updates are processed first. If there's enough time, React continues to process low-priority updates.
 
-5. **Commit Phase**:
+**5. Commit Phase**:
    - Once React has completed the reconciliation process and determined the necessary changes, it moves to the commit phase.
    - During the commit phase, React applies the changes to the real DOM in a single pass, ensuring minimal DOM manipulations.
 
