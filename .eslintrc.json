@@ -4,6 +4,7 @@
     // Add other Next.js core-web-vitals rules here if needed
 
     // Add the react/no-unescaped-entities rule
+    // "react/no-unescaped-entities": "off",
     "react/no-unescaped-entities": [
       "error",
       {
