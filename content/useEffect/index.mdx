@@ -1,0 +1,147 @@
+---
+title: "Understanding useEffect: How It Works Under the Hood"
+description: A deep dive into the inner workings of the useEffect hook in React.
+image: "../../public/blogs/marvin-meyer-SYTO3xs06fU-unsplash.jpg"
+publishedAt: "2023-05-01"
+updatedAt: "2023-05-01"
+author: "zarif"
+isPublished: true
+tags:
+
+- react
+- hooks
+- useEffect
+- javascript
+
+---
+
+Until now, many developers have been using the useEffect hook in React without fully understanding how it works under the hood. By default, useEffect is a powerful and often necessary tool for side effects in functional components. This article aims to demystify the internal mechanics of useEffect and explain why it behaves the way it does.
+
+We get lots of questions about it actually, with people regularly asking things like:
+
+> Why does useEffect run after every render? How do I control when it runs? What about clean-up?
+
+The useEffect hook is our attempt to provide a declarative API for managing side effects,
+without the downsides of lifecycle methods.
+
+Here's a simple example of how Suspense can be used with a data-fetching component:
+
+```jsx
+import React, { useEffect } from 'react';
+function ExampleComponent() {
+  useEffect(() => {
+    // Side-effect logic here
+    console.log('Component rendered or updated');
+
+    // Clean-up function (optional)
+    return () => {
+      console.log('Component will unmount or update');
+    };
+  }, []); // Empty dependency array means this runs once, similar to componentDidMount
+
+  return <div>Hello, World!</div>;
+}
+export default ExampleComponent;
+```
+
+### What to Expect from Here On Out
+What follows from here is a deep dive into the inner workings of useEffect. It includes every aspect you need to understand, like dependencies, clean-up functions, and even common pitfalls.
+
+It's important to cover all of these use cases for a few reasons:
+
+1. We want everything to be clear and understandable.
+
+2. Really just the first reason, that's the whole point of the article.
+
+3. Here's a third pretend reason, though a list with three items looks more realistic than a list with two items.
+
+### Understanding Dependencies
+The useEffect hook takes two arguments: a function containing the side effect logic and an 
+optional array of dependencies. The dependency array determines when the effect should re-run.
+
+```jsx
+useEffect(() => {
+  // Effect logic
+}, [dependency1, dependency2]);
+```
+
+### Clean-Up Functions
+One of the most powerful features of useEffect is its ability to clean up after itself. 
+If your effect returns a function, React will run it when it's time to clean up, like when 
+the component unmounts or before running the effect again.
+
+```jsx
+useEffect(() => {
+  const handleResize = () => {
+    console.log('Window resized');
+  };
+
+  window.addEventListener('resize', handleResize);
+
+  return () => {
+    window.removeEventListener('resize', handleResize);
+  };
+}, []); // Empty array ensures this runs only on mount and unmount
+```
+
+### Avoiding Common Pitfalls
+
+When using `useEffect`, it's important to be mindful of common pitfalls.
+One common issue is failing to specify dependencies correctly, which can lead to 
+unexpected behaviors or performance issues.
+
+```jsx
+useEffect(() => {
+  const fetchData = async () => {
+    const response = await fetch('/api/data');
+    const data = await response.json();
+    console.log(data);
+  };
+  fetchData();
+}, []); // Ensure the dependency array is correct to avoid infinite loops
+```
+
+### When to Use `useEffect`
+Deciding when to use `useEffect` comes down to understanding its purpose: to handle side effects 
+in functional components. This includes tasks like:
+
+- **Fetching data from an API**
+- **Subscribing to services or event listeners**
+- **Directly interacting with the DOM**
+
+### Code Example with Explanation
+Let's look at a more complex example to understand how useEffect works in a real-world scenario:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+function DataFetchingComponent() {
+  const [data, setData] = useState(null);
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      const response = await fetch('https://api.example.com/data');
+      const result = await response.json();
+      if (isMounted) {
+        setData(result);
+      }
+    };
+    fetchData();
+    return () => {
+      isMounted = false;
+    };
+  }, []); // Dependency array ensures this runs once on mount
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+  return <div>{JSON.stringify(data)}</div>;
+}
+export default DataFetchingComponent;
+```
+This example shows how to fetch data from an API while ensuring that we handle component 
+unmounting correctly to avoid potential memory leaks.
+
+### Conclusion
+The `useEffect` hook is a fundamental part of React that allows functional components to handle side effects efficiently. Understanding how it works under the hood can help you avoid 
+common pitfalls and write more robust React applications
