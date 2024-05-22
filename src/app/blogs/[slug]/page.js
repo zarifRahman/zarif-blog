@@ -9,7 +9,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export async function generateStaticParams() {
-  return allBlogs.map((blog) => ({ slug: blog._raw.flattenedPath }));
+  return allBlogs?.map((blog) => ({ slug: blog._raw.flattenedPath }));
 }
 
 export async function generateMetadata({ params }) {
@@ -28,7 +28,7 @@ export async function generateMetadata({ params }) {
         ? [siteMetadata.siteUrl + blog.image.filePath.replace("../public", "")]
         : blog.image;
   }
-  const ogImages = imageList.map((img) => {
+  const ogImages = imageList?.map((img) => {
     return { url: img.includes("http") ? img : siteMetadata.siteUrl + img };
   });
 
@@ -126,7 +126,7 @@ export default function BlogPage({ params }) {
                 Table Of Content
               </summary>
               <ul className='mt-4 font-in text-base'>
-                {blog.toc.map((heading) => {
+                {blog?.toc?.map((heading) => {
                   return (
                     <li key={`#${heading.slug}`} className='py-1'>
                       <a

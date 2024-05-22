@@ -11,7 +11,7 @@ export async function generateStaticParams() {
 
   allBlogs?.map((blog) => {
     if (blog.isPublished) {
-      blog.tags.map((tag) => {
+      blog?.tags?.map((tag) => {
         let slugified = slugger.slug(tag);
         if (!categories.includes(slugified)) {
           categories.push(slugified);
@@ -69,7 +69,7 @@ const CategoryPage = ({ params }) => {
       <Categories categories={allCategories} currentSlug={params.slug} />
 
       <div className='grid  grid-cols-1 sm:grid-cols-2  lg:grid-cols-3 grid-rows-2 gap-16 mt-5 sm:mt-10 md:mt-24 sxl:mt-32 px-5 sm:px-10 md:px-24 sxl:px-32'>
-        {blogs.map((blog, index) => (
+        {blogs?.map((blog, index) => (
           <article key={index} className='col-span-1 row-span-1 relative'>
             <BlogLayoutThree blog={blog} />
           </article>
