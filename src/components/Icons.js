@@ -437,3 +437,25 @@ export const DribbbleIcon = ({ className, ...rest }) => {
     </svg>
   );
 };
+
+export const EmailIcon = ({ className, ...rest }) => {
+  return (
+    <svg
+      xmlns='http://www.w3.org/2000/svg'
+      width={40}
+      height={40}
+      viewBox='0 0 40 40'
+      className={cx("w-full h-auto", className)}
+      {...rest}
+    >
+      {/* Envelope shape */}
+      <path
+        fill='#4285F4'
+        d='M20 4C4.9 4 0 8.9 0 14v16c0 5.1 4.9 9.4 10 9.4h20c5.1 0 10-4.3 10-9.4V14c0-5.1-4.9-10-10-10z'
+      />
+      {/* Optional: Add a mail symbol inside */}
+      <path fill='#fff' d='M22 18v8h-4v-8l-2-2h8z' />
+    </svg>
+  );
+};
+

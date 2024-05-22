@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import Logo from "./Logo";
 import Link from "next/link";
 import { cx } from "@/src/utils";
-import { DribbbleIcon, GithubIcon, LinkedinIcon, MoonIcon, SunIcon, TwitterIcon } from "../Icons";
+import { DribbbleIcon, EmailIcon, GithubIcon, LinkedinIcon, MoonIcon, SunIcon, TwitterIcon } from "../Icons";
 import { useThemeSwitch } from "../Hooks/useThemeSwitch";
 
 export const Header = () => {
@@ -149,6 +149,15 @@ export const Header = () => {
         >
           <GithubIcon className='  hover:scale-125 transition-all ease duration-200 dark:fill-light' />
         </a>
+        {/* <a
+          href={"mailto:zarif.shahriar.rahman"}
+          rel='noopener noreferrer'
+          className='inline-block w-6 h-6 mr-4'
+          aria-label='Send me an email'
+          target='_blank'
+        >
+          <EmailIcon className='hover:scale-125 transition-all ease duration-200' />
+        </a> */}
       </div>
     </header>
   );
