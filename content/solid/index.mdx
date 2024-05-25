@@ -1,0 +1,47 @@
+---
+title: "SOLID Principle"
+description: SOLID Principle with React  example.
+image: "../../public/blogs/paul-esch-laurent-oZMUrWFHOB4-unsplash.jpg"
+publishedAt: "2024-03-17"
+updatedAt: "2024-03-17"
+author: "zarif"
+isPublished: true
+tags:
+
+- development
+---
+Please read this article on `SOLID Principles` in React [Solid Principle](https://blog.stackademic.com/react-native-masters-solid-principles-in-react-react-native-a1b8df8d261d).
+
+React itself is a library, not a full-fledged object-oriented programming language. SOLID principles were originally developed for object-oriented design (OOD) in languages like Java. While there isn't a direct one-to-one mapping of SOLID principles to React, the principles can still be valuable guidelines for writing well-structured and maintainable React components. Here's a breakdown of how they apply:
+
+**1. Single Responsibility Principle (SRP):**
+
+- **In OOD:** A class should have one and only one reason to change.
+- **In React:** Each component should ideally have a single responsibility, focusing on a specific task or functionality. This promotes code reuse, easier maintenance, and less risk of unintended side effects when modifying components.
+- **Example:** A `ProductCard` component should only handle displaying product information (name, price, image) and handling user interactions (like adding to cart), not fetching product data or managing global state.
+
+**2. Open/Closed Principle (OCP):**
+
+- **In OOD:** Software entities (classes) should be open for extension, but closed for modification.
+- **In React:** While React components aren't directly classes, strive to design components that can be extended with new features using props or composition (nesting components) without modifying the core functionality. This improves flexibility and maintainability.
+- **Example:** A `Button` component can be extended with different styles, sizes, or functionality using props (e.g., `primary`, `outlined`, `onClick`). We can also create specialized button components like `SubmitButton` or `CancelButton` by building upon the base `Button` component.
+
+**3. Liskov Substitution Principle (LSP):**
+
+- **In OOD:** Subtypes should be substitutable for their base types.
+- **In React:** React components don't have direct inheritance like traditional classes. However, the principle can be interpreted as ensuring components composed together behave as expected. When using higher-order components (HOCs) or custom hooks, they should not break the behavior of the original component and instead extend it seamlessly.
+- **Example:** An `AuthHOC` can wrap a component to add authentication logic without modifying the component itself. The wrapped component can still function as intended, just with the added authentication layer.
+
+**4. Interface Segregation Principle (ISP):**
+
+- **In OOD:** Clients shouldn't be forced to depend on methods they don't use.
+- **In React:** React components receive props to define their behavior. Avoid passing unnecessary props to components. Create smaller, more focused components if a component receives many props it doesn't directly use.
+- **Example:** Instead of passing all product data as a single prop, break it down into specific props like `name`, `price`, `image`, etc., allowing components to consume only the data they need.
+
+**5. Dependency Inversion Principle (DIP):**
+
+- **In OOD:** High-level modules shouldn't depend on low-level modules. Both should depend on abstractions.
+- **In React:** React components often depend on external libraries or data fetching logic. Aim to abstract this logic away from the component using dependency injection patterns or context APIs. This makes components less coupled to specific implementations and easier to test in isolation.
+- **Example:** Instead of directly fetching data from an API within a component, use a custom hook or service to handle the data fetching logic. This way, the component can be easily mocked for testing and doesn't rely on the specific implementation of the data source.
+
+Remember, SOLID principles serve as guidelines, not strict rules. Adapt them to fit the context of your React application while keeping code structure, maintainability, and reusability in mind.
