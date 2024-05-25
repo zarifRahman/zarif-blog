@@ -3,7 +3,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { DribbbleIcon, GithubIcon, LinkedinIcon, TwitterIcon } from "../Icons";
 import Link from "next/link";
-// import siteMetadata from "@/src/utils/siteMetaData";
+import siteMetadata from "@/src/utils/siteMetaData";
 
 const Footer = () => {
   const {
@@ -73,12 +73,12 @@ const Footer = () => {
         <span className='text-center'>
           &copy;2024 Zarif. All rights reserved.
         </span>
-        {/* <Link
+        <Link
           href='/sitemap.xml'
           className='text-center underline my-4 md:my-0'
         >
           sitemap.xml
-        </Link> */}
+        </Link>
         <div className='text-center'>
           Made with &hearts; by{" "}
           <a
