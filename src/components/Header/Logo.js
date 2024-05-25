@@ -11,6 +11,7 @@ const Logo = () => {
           alt='profilePic logo'
           className='w-full h-auto rounded-full'
           sizes='20vw'
+          // priority
           priority
         />
       </div>
