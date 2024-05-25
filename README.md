@@ -1,2 +1,2 @@
-# Personal blog with Next.js 13 Blog Tutorial 🔥
+# Personal blog with Next.js 🔥
 Project run: npm run dev
