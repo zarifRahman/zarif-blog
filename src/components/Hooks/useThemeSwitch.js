@@ -20,6 +20,7 @@ export function useThemeSwitch() {
 
   const getUserPreference = () => {
     const userPref = window.localStorage.getItem(storageKey);
+    console.log({ userPref });
     if (userPref) {
       return userPref;
     }
@@ -31,13 +32,13 @@ export function useThemeSwitch() {
   // Otherwise, it uses the window.matchMedia API with the preferDarkQuery to determine if the user's browser prefers dark mode.
   // If the user prefers dark mode, it returns "dark"; otherwise, it returns "light".
 
-  const [mode, setMode] = useState("light");
+  const [mode, setMode] = useState("dark");
 
   useEffect(() => {
     const mediaQuery = window.matchMedia(preferDarkQuery);
     // `window.matchMedia` is a powerful browser API that allows you to check if the current
     // state of the browser window matches a specific media query
-    
+
     const handleChange = () => {
       const newMode = getUserPreference();
       setMode(newMode);
