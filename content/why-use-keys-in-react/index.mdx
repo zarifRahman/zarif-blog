@@ -1,0 +1,29 @@
+---
+title: "Why we use Keys in React?"
+description: Why w use Keys in React?
+image: "../../public/blogs/carlos-muza-hpjSkU2UYSU-unsplash.jpg"
+publishedAt: "2024-04-09"
+updatedAt: "2024-04-09"
+author: "zarif"
+isPublished: true
+tags:
+
+- react
+
+---
+
+In React, the `key` attribute is used to identify which items have changed, been added, or 
+removed from a list. Keys help React efficiently update and re-render components by maintaining 
+the identity of each list item across updates. Without keys, React would have to re-render every item 
+in the list, even if only one item changes, which can lead to performance issues.
+
+## Efficient Updates and Rendering
+React uses keys to identify which elements in a list have changed, been added, or removed. This enables React to optimize the rendering process by:
+
+**1. Avoiding re-rendering unchanged items.**<br/>
+**2. Ensuring that updates are applied to the correct elements.**
+
+`Avoiding Index as Key`
+Using an index as a key can lead to issues when the list changes, such as reordering or adding/removing items, because it 
+may not uniquely identify the element's position.
+`Rather use IDs as key index`
