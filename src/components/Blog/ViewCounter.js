@@ -1,10 +1,10 @@
 "use client"
 import { createClientComponentClient } from '@supabase/auth-helpers-nextjs'
-import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState } from 'react'
 
 const supabase = createClientComponentClient();
+
+console.log({ supabase });
 
 export const ViewCounter = ({slug, noCount=false, showCount=true}) => {
 	const [views, setViews] = useState(0);
@@ -12,10 +12,9 @@ export const ViewCounter = ({slug, noCount=false, showCount=true}) => {
 	useEffect(() => {
 		const incrementView = async () => {
 			try {
-				let { error } = await supabase
-					.rpc('increment', {
-						slug_text
-					})
+				let { error } = await supabase.rpc("increment", {
+          slug_text: slug,
+        });
 				if (error){
 					console.error("Error incrementing view count inside try block:", error);
 				}
@@ -31,7 +30,7 @@ export const ViewCounter = ({slug, noCount=false, showCount=true}) => {
 	useEffect(() => {
 		const getViews = async () => {
       try {
-        let { data: views, error } = await supabase
+        let { data, error } = await supabase
           .from("views")
           .select("count")
           .match({ slug: slug })
@@ -42,6 +41,7 @@ export const ViewCounter = ({slug, noCount=false, showCount=true}) => {
             error
           );
         }
+				console.log({ data });
         setViews(data ? data?.count : 0)
       } catch (error) {
         console.error(
@@ -53,9 +53,11 @@ export const ViewCounter = ({slug, noCount=false, showCount=true}) => {
     getViews();
 	},[slug])
 	
+	console.log({ views });
+
 	if(showCount) {
 		return (
-			<div>{views} views</div>
+			<div suppressHydrationWarning={true}>{views} views</div>
 		)
 	}else{
 		return null
